@@ -1,0 +1,14 @@
+//HTML&CSS
+1. white-space:nowrap을 주자 세로 배치였던 이미지가 가로 배치가 됐다.
+2. img 태그한테 고정 높이를 주자 각기 다른 크기였던 이미지 파일들이 똑같아졌다.
+3. width: calc(100%/3)을 사용하자 화면에 3개의 이미지만 보이게 됐다.
+4. object-fit:cover를 주자 억지로 늘려졌던 이미지의 크기들이 자연스러워졌다.
+5. font-size: 0px을 주자 이미지들 사이에 있던 공백이 사라졌다.
+6. .carousel에 overflow: hidden을 주자 범위를 넘어서 이미지들을 숨겼다.
+이미지 자체는 그대로 있다
+
+//JavaScript
+
+//공부할 거
+white-space:nowrap
+object-fit:cover
