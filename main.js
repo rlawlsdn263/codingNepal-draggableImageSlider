@@ -1,13 +1,22 @@
 const carousel = document.querySelector(".carousel");
+const firstImg = carousel.querySelectorAll("img")[0];
 const arrowIcons = document.querySelectorAll(".wrapper i");
 
 let isDragStart = false,
   prevPageX,
   prevScrollLeft;
 
+let firstImgWidth = firstImg.clientWidth + 14; //getting first img width & adding 14 margin value
+
 arrowIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
-    console.log(icon);
+    //좌아이콘 클릭시, 이미지 크기만큼 감소 아니라면 증가
+    // carousel.scrollLeft += icon.id == "left" ? -firstImgWidth : firstImgWidth;
+    if (icon.id == "left") {
+      carousel.scrollLeft -= firstImgWidth;
+    } else {
+      carousel.scrollLeft += firstImgWidth;
+    }
   });
 });
 
