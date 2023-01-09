@@ -8,6 +8,12 @@
 이미지 자체는 그대로 있다
 
 //JavaScript
+1. mousemove 이벤트
+
+e.pageX는 마우스가 X좌표로 이동하는 좌표값을 제공한다.
+
+carousel.scrollLeft = e.pageX;
+는 마우스를 마우스 이동한만큼 스크롤이 일어난다.
 
 //공부할 거
 white-space:nowrap
