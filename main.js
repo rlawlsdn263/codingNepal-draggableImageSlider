@@ -5,8 +5,17 @@ const arrowIcons = document.querySelectorAll(".wrapper i");
 let isDragStart = false,
   prevPageX,
   prevScrollLeft;
-
 let firstImgWidth = firstImg.clientWidth + 14; //getting first img width & adding 14 margin value
+
+const showHideIcons = () => {
+  //carousel.scrollLeft과 0이면 좌 아이콘 display: none;
+  // arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
+  if (carousel.scrollLeft == 0) {
+    arrowIcons[0].style.display = "none";
+  } else {
+    arrowIcons[0].style.display = "block";
+  }
+};
 
 arrowIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
@@ -17,6 +26,7 @@ arrowIcons.forEach((icon) => {
     } else {
       carousel.scrollLeft += firstImgWidth;
     }
+    showHideIcons();
   });
 });
 
@@ -31,12 +41,14 @@ const dragging = (e) => {
   //이미지 포인터 기준으로 왼쪽으로 이동하기
   if (!isDragStart) return;
   e.preventDefault();
+  carousel.classList.add("dragging");
   let positionDiff = e.pageX - prevPageX;
   carousel.scrollLeft = prevScrollLeft - positionDiff;
 };
 
 const dragStop = () => {
   isDragStart = false;
+  carousel.classList.remove("dragging");
 };
 
 carousel.addEventListener("mousedown", dragStart);
