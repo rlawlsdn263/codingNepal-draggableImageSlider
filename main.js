@@ -36,7 +36,8 @@ arrowIcons.forEach((icon) => {
 const dragStart = (e) => {
   //updating global variables value on mouse down event
   isDragStart = true;
-  prevPageX = e.pageX;
+  // e.pagX는 데스크탑, e.touched[0].pageX는 터치 디바이스
+  prevPageX = e.pageX || e.touches[0].pageX;
   prevScrollLeft = carousel.scrollLeft;
 };
 
@@ -45,7 +46,7 @@ const dragging = (e) => {
   if (!isDragStart) return;
   e.preventDefault();
   carousel.classList.add("dragging");
-  let positionDiff = e.pageX - prevPageX;
+  let positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
   carousel.scrollLeft = prevScrollLeft - positionDiff;
   showHideIcons();
 };
