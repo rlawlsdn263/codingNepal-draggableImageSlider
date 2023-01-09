@@ -1,8 +1,15 @@
 const carousel = document.querySelector(".carousel");
+const arrowIcons = document.querySelectorAll(".wrapper i");
 
 let isDragStart = false,
   prevPageX,
   prevScrollLeft;
+
+arrowIcons.forEach((icon) => {
+  icon.addEventListener("click", () => {
+    console.log(icon);
+  });
+});
 
 const dragStart = (e) => {
   //updating global variables value on mouse down event
