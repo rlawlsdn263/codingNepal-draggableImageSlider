@@ -1,15 +1,22 @@
 const carousel = document.querySelector(".carousel");
 
-let isDragStart = false;
+let isDragStart = false,
+  prevPageX,
+  prevScrollLeft;
 
-const dragStart = () => {
+const dragStart = (e) => {
+  //updating global variables value on mouse down event
   isDragStart = true;
+  prevPageX = e.pageX;
+  prevScrollLeft = carousel.scrollLeft;
 };
 
 const dragging = (e) => {
+  //이미지 포인터 기준으로 왼쪽으로 이동하기
   if (!isDragStart) return;
-  // e.preventDefault();
-  carousel.scrollLeft = e.pageX;
+  e.preventDefault();
+  let positionDiff = e.pageX - prevPageX;
+  carousel.scrollLeft = prevScrollLeft - positionDiff;
 };
 
 const dragStop = () => {
