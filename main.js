@@ -6,15 +6,19 @@ let isDragStart = false,
   prevPageX,
   prevScrollLeft;
 let firstImgWidth = firstImg.clientWidth + 14; //getting first img width & adding 14 margin value
+// 스크롤값 최대치 얻기
+let scrollWidth = carousel.scrollWidth - carousel.clientWidth;
 
 const showHideIcons = () => {
   //carousel.scrollLeft과 0이면 좌 아이콘 display: none;
-  // arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
-  if (carousel.scrollLeft == 0) {
-    arrowIcons[0].style.display = "none";
-  } else {
-    arrowIcons[0].style.display = "block";
-  }
+  // if (carousel.scrollLeft == 0) {
+  //   arrowIcons[0].style.display = "none";
+  // } else {
+  //   arrowIcons[0].style.display = "block";
+  // }
+  arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
+  arrowIcons[1].style.display =
+    carousel.scrollLeft == scrollWidth ? "none" : "block";
 };
 
 arrowIcons.forEach((icon) => {
@@ -26,7 +30,6 @@ arrowIcons.forEach((icon) => {
     } else {
       carousel.scrollLeft += firstImgWidth;
     }
-    showHideIcons();
   });
 });
 
@@ -44,6 +47,7 @@ const dragging = (e) => {
   carousel.classList.add("dragging");
   let positionDiff = e.pageX - prevPageX;
   carousel.scrollLeft = prevScrollLeft - positionDiff;
+  showHideIcons();
 };
 
 const dragStop = () => {
