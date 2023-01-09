@@ -5,9 +5,7 @@ const arrowIcons = document.querySelectorAll(".wrapper i");
 let isDragStart = false,
   prevPageX,
   prevScrollLeft;
-let firstImgWidth = firstImg.clientWidth + 14; //getting first img width & adding 14 margin value
 // 스크롤값 최대치 얻기
-let scrollWidth = carousel.scrollWidth - carousel.clientWidth;
 
 const showHideIcons = () => {
   //carousel.scrollLeft과 0이면 좌 아이콘 display: none;
@@ -16,6 +14,7 @@ const showHideIcons = () => {
   // } else {
   //   arrowIcons[0].style.display = "block";
   // }
+  let scrollWidth = carousel.scrollWidth - carousel.clientWidth;
   arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
   arrowIcons[1].style.display =
     carousel.scrollLeft == scrollWidth ? "none" : "block";
@@ -23,6 +22,7 @@ const showHideIcons = () => {
 
 arrowIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
+    let firstImgWidth = firstImg.clientWidth + 14; //getting first img width & adding 14 margin value
     //좌아이콘 클릭시, 이미지 크기만큼 감소 아니라면 증가
     // carousel.scrollLeft += icon.id == "left" ? -firstImgWidth : firstImgWidth;
     if (icon.id == "left") {
