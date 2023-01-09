@@ -2,9 +2,10 @@ const carousel = document.querySelector(".carousel");
 const firstImg = carousel.querySelectorAll("img")[0];
 const arrowIcons = document.querySelectorAll(".wrapper i");
 
-let isDragStart = false,
-  prevPageX,
-  prevScrollLeft;
+let isDragStart = false;
+let prevPageX;
+let prevScrollLeft;
+let positionDiff;
 // 스크롤값 최대치 얻기
 
 const showHideIcons = () => {
@@ -33,6 +34,23 @@ arrowIcons.forEach((icon) => {
   });
 });
 
+const autoSlide = () => {
+  positionDiff = Math.abs(positionDiff);
+  let firstImgWidth = firstImg.clientWidth + 14;
+  let valDifference = firstImgWidth - positionDiff;
+
+  if (carousel.scrollLeft > prevScrollLeft) {
+    // if (positionDiff > firstImgWidth / 3) {
+    //   carousel.scrollLeft += valDifference;
+    // } else {
+    //   carousel.scrollLeft -= positionDiff;
+    // }
+    return (carousel.scrollLeft +=
+      positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff);
+  }
+  console.log("좌클");
+};
+
 const dragStart = (e) => {
   //updating global variables value on mouse down event
   isDragStart = true;
@@ -46,7 +64,7 @@ const dragging = (e) => {
   if (!isDragStart) return;
   e.preventDefault();
   carousel.classList.add("dragging");
-  let positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
+  positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
   carousel.scrollLeft = prevScrollLeft - positionDiff;
   showHideIcons();
 };
@@ -54,6 +72,7 @@ const dragging = (e) => {
 const dragStop = () => {
   isDragStart = false;
   carousel.classList.remove("dragging");
+  autoSlide();
 };
 
 carousel.addEventListener("mousedown", dragStart);
