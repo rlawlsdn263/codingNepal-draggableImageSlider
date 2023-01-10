@@ -3,75 +3,95 @@ const firstImg = carousel.querySelectorAll("img")[0];
 const arrowIcons = document.querySelectorAll(".wrapper i");
 
 let isDragStart = false;
+let isDragging = false;
 let prevPageX;
 let prevScrollLeft;
 let positionDiff;
-// 스크롤값 최대치 얻기
 
 const showHideIcons = () => {
-  //carousel.scrollLeft과 0이면 좌 아이콘 display: none;
-  // if (carousel.scrollLeft == 0) {
-  //   arrowIcons[0].style.display = "none";
-  // } else {
-  //   arrowIcons[0].style.display = "block";
-  // }
+  //carousel.scrollLeft의 값에 따라 버튼 보여주고 숨기기
   let scrollWidth = carousel.scrollWidth - carousel.clientWidth;
+
   arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
   arrowIcons[1].style.display =
     carousel.scrollLeft == scrollWidth ? "none" : "block";
 };
 
+//아이콘 담긴 배열 가져와 클릭 이벤트 부여하기
 arrowIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
-    let firstImgWidth = firstImg.clientWidth + 14; //getting first img width & adding 14 margin value
-    //좌아이콘 클릭시, 이미지 크기만큼 감소 아니라면 증가
-    // carousel.scrollLeft += icon.id == "left" ? -firstImgWidth : firstImgWidth;
-    if (icon.id == "left") {
-      carousel.scrollLeft -= firstImgWidth;
-    } else {
-      carousel.scrollLeft += firstImgWidth;
-    }
+    //1번 이미지 + margin: 14px값
+    let firstImgWidth = firstImg.clientWidth + 14;
+
+    //icon.id가 left면 carousel.scrollLeft -= firstImgWidth, 아니면 += firstImgWidth
+    carousel.scrollLeft += icon.id == "left" ? -firstImgWidth : firstImgWidth;
+    setTimeout(() => showHideIcons(), 60);
   });
 });
 
+//이미지 좌우에 딱 붙이기
 const autoSlide = () => {
+  //이미지 더 없으면
+  if (carousel.scrollLeft == carousel.scrollWidth - carousel.clientWidth)
+    return;
+
+  //positionDiff값 +로 만들기
   positionDiff = Math.abs(positionDiff);
   let firstImgWidth = firstImg.clientWidth + 14;
+  //캐러셀 중앙 배치를 위한 값
   let valDifference = firstImgWidth - positionDiff;
 
+  //어느 방향으로 스크롤 하고 있는지 알아보기
   if (carousel.scrollLeft > prevScrollLeft) {
-    // if (positionDiff > firstImgWidth / 3) {
-    //   carousel.scrollLeft += valDifference;
-    // } else {
-    //   carousel.scrollLeft -= positionDiff;
-    // }
+    //유저의 positionDiff가 33%보다 크다면 다른 값을 추가하라?
+    //우스크롤이면 우로 붙임
     return (carousel.scrollLeft +=
       positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff);
   }
-  console.log("좌클");
+  //좌스크롤 중이면 좌로 붙임
+  carousel.scrollLeft -=
+    positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
 };
 
+//마우스 누르면 드래그 OK
 const dragStart = (e) => {
-  //updating global variables value on mouse down event
   isDragStart = true;
-  // e.pagX는 데스크탑, e.touched[0].pageX는 터치 디바이스
+
+  //prePageX와 prevScrollLeft 변수값 재할당
   prevPageX = e.pageX || e.touches[0].pageX;
+
+  //scrollLeft는 요소의 현 scroll 위치를 반환
+  //pageX는 마우스 좌표의 X좌표값
   prevScrollLeft = carousel.scrollLeft;
 };
 
 const dragging = (e) => {
-  //이미지 포인터 기준으로 왼쪽으로 이동하기
+  //마우스 누르지 않으면 스크롤X
   if (!isDragStart) return;
+
+  //이미지 누르면 드래그하는 거 멈춤
   e.preventDefault();
+
+  //자동 이동 버그 해결
+  isDragging = true;
+
   carousel.classList.add("dragging");
+
   positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
+
+  //마우스포인터가 이동한 만큼 좌측 스크롤
   carousel.scrollLeft = prevScrollLeft - positionDiff;
   showHideIcons();
 };
 
+//마우스 떼면 드래그 X
 const dragStop = () => {
   isDragStart = false;
   carousel.classList.remove("dragging");
+
+  if (!isDragging) return;
+  isDragging = false;
+  //마우스 떼면 자동으로 슬라이드 붙기
   autoSlide();
 };
 
@@ -85,7 +105,14 @@ carousel.addEventListener("mouseup", dragStop);
 carousel.addEventListener("mouseleave", dragStop);
 carousel.addEventListener("touchend", dragStop);
 
+//mousemove
 //pageX
-
-//마우스클릭 VS 마우스 다운
-//https://kimgeuntae.tistory.com/16
+//scrollLeft
+//mousedown
+//mouseup
+//clientWidth;
+//scroll-behavior: smooth;
+//scroll-behavior: auto;
+//scrollWidth
+//clientWidth
+//mouseleave
