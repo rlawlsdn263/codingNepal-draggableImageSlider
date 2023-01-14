@@ -1,29 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Draggable Slider Carousel | CodingNepal</title>
+  <title>JS 깨부 스터디 - 3회차 캐러셀</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/babe730581.js" crossorigin="anonymous"></script>
-  <script src="main.js" defer></script>
+  <script defer src="./main.js"></script>
 </head>
 <body>
-  <div class="wrapper">
-    <i id="left" class="fa-solid fa-angle-left"></i>
-    <div class="carousel">
-      <img src="images/img-1.jpg" alt="img" draggable="false"/>
-      <img src="images/img-2.jpg" alt="img" draggable="false"/>
-      <img src="images/img-3.jpg" alt="img" draggable="false"/>
-      <img src="images/img-4.jpg" alt="img" draggable="false"/>
-      <img src="images/img-5.jpg" alt="img" draggable="false"/>
-      <img src="images/img-6.jpg" alt="img" draggable="false"/>
-      <img src="images/img-7.jpg" alt="img" draggable="false"/>
-      <img src="images/img-8.jpg" alt="img" draggable="false"/>
-      <img src="images/img-9.jpg" alt="img" draggable="false"/>
-    </div>
-    <i id="right" class="fa-solid fa-angle-right"></i>
+  <div class="inner-wrapper">
+    <button class="left button"><i id="left" class="fa-solid fa-angle-left"></i></button>
+    <button class="right button"><i id="right" class="fa-solid fa-angle-right"></i></button>
+    <div class="gallery"></div>
   </div>
 </body>
 </html>

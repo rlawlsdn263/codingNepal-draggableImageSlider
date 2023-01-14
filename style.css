@@ -9,79 +9,44 @@
 
 body {
   display: flex;
-  padding: 0 35px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
   background: #343F4F;
+  padding: 20px;
 }
 
-.wrapper {
+.inner-wrapper {
   max-width: 1200px;
   position: relative;
 }
 
-.wrapper i {
-  background: #fff;
-  height: 46px;
-  width: 46px;
-  font-size: 1.2rem;
-  text-align: center;
-  line-height: 46px;
-  border-radius: 50%;
-  position: absolute;
+.gallery {
+  display: flex;
+  overflow: hidden;
+  gap: 10px;
+}
+
+.gallery img {
+  width: calc(100%/3);
+  object-fit: cover;
+}
+
+.button {
+  position:absolute;
+  font-size: 1rem;
+  width: 40px;
+  height: 40px;
   top: 50%;
   transform: translateY(-50%);
+  border-radius: 50%;
+  border: none;
 }
 
-.wrapper i:first-child {
-  left: -23px;
-  display: none;
+.left {
+  left: -20px;
 }
 
-.wrapper i:last-child {
-  right: -23px;
-}
-
-.wrapper .carousel {
-  font-size: 0px;
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  /* 좌우버튼 클릭하면 부드럽게 이동 */
-  scroll-behavior: smooth;
-}
-
-.carousel.dragging {
-  cursor: grab;
-  /* 좌우 드래그하면 부드럽게 이동 */
-  scroll-behavior: auto;
-}
-
-.carousel.dragging img {
-  pointer-events: none;
-}
-
-.carousel img {
-  height: 340px;
-  object-fit: cover;
-  margin-left: 14px;
-  width: calc(100%/3);
-}
-
-.carousel img:first-child {
-  margin-left: 0px;
-}
-
-/* 모바일 */
-@media screen and (max-width: 900px) {
-  .carousel img {
-    width: calc(100%/2);
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .carousel img {
-    width: 100%;
-  }
+.right {
+  right: -20px;
 }
